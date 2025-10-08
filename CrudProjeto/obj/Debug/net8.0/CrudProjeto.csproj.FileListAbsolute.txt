@@ -168,3 +168,8 @@ C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\obj\Debug\net8.0\staticw
 C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\obj\Debug\net8.0\CrudProj.090BFD29.Up2Date
 C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\obj\Debug\net8.0\CrudProjeto.genruntimeconfig.cache
 C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\obj\Debug\net8.0\ref\CrudProjeto.dll
+C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\gabri\Desktop\Projetos\CrudSolucao\CrudProjeto\obj\Debug\net8.0\CrudProjeto.MvcApplicationPartsAssemblyInfo.cs

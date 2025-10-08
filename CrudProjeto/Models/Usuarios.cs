@@ -1,5 +1,8 @@
-﻿namespace CrudProjeto.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace CrudProjeto.Models;
+
+[Table("usuarios")]
 public class Usuarios
 {
     public int Id { get; set; }
