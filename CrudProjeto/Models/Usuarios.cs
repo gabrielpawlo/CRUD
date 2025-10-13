@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;//tabela MySQL -> usuarios
 
 namespace CrudProjeto.Models;
 
