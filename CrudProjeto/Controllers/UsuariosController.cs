@@ -36,7 +36,10 @@ public class UsuariosController : ControllerBase
     [HttpDelete]
     public async Task<IActionResult> DeleteUsuarios(Usuarios usuarios)
     {
-        //fazer delete
+        _context.Usuarios.Remove(usuarios);
+        await _context.SaveChangesAsync();
+
+
         return Ok();
     }
 }
