@@ -18,7 +18,7 @@ public class UsuariosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddUsuario(Usuarios usuario)//criando usuario
+    public async Task<IActionResult> AddUsuarios(Usuarios usuario)//criando usuario
     {
         _context.Usuarios.Add(usuario);
         await _context.SaveChangesAsync();
@@ -33,13 +33,34 @@ public class UsuariosController : ControllerBase
         return Ok(usuarios);
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> DeleteUsuarios(Usuarios usuarios)
+    [HttpGet("{id}")]//get por id
+    public async Task<IActionResult> GetUsuariosPorId(int id)
     {
-        _context.Usuarios.Remove(usuarios);
-        await _context.SaveChangesAsync();
+        var usuarios = await _context.Usuarios.FindAsync(id);
+
+        if(usuarios == null)
+        {
+            return NotFound("(ID) - Usuario nao encontrado");
+        }
+
+        return Ok(usuarios);
+    }
 
 
-        return Ok();
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUsuarios(int id)//delete por id
+    {
+        var usuario = _context.Usuarios.Find(id);//pega objeto do id dentro do contexto do BD
+
+        if (usuario is not null)//verifica se o id existe || se nao e nulo
+        {
+            _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
+        } else
+        {
+            return NotFound("(ID) - Usuario nao encontrado");
+        }
+
+            return Ok();
     }
 }
