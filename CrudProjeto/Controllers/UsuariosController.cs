@@ -18,12 +18,18 @@ public class UsuariosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddUsuarios(Usuarios usuario)//criando usuario
+    public async Task<IActionResult> AddUsuarios([FromBody] Usuarios usuario)//criando usuario
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         _context.Usuarios.Add(usuario);
         await _context.SaveChangesAsync();
 
-        return Ok(usuario);
+        return Created("Usuario adicionado", usuario);
+
     }
 
     [HttpGet]
