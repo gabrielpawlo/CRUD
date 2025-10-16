@@ -46,6 +46,21 @@ public class UsuariosController : ControllerBase
         return Ok(usuarios);
     }
 
+    [HttpPut("{id}")] //fazer put (modificacao) por id //update
+    public async Task<IActionResult> PutUsuarios(int id, [FromBody] Usuarios usuarioAtualizado)
+    {
+        var usuarioAtual = _context.Usuarios.Find(id);
+        if(usuarioAtual == null)
+        {
+            return NotFound("(ID) Nao encontrado");
+        }
+
+        _context.Entry(usuarioAtual).CurrentValues.SetValues(usuarioAtualizado);
+
+        await _context.SaveChangesAsync();
+        return StatusCode(201, usuarioAtual);//201 modificado
+    }
+
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUsuarios(int id)//delete por id
@@ -61,6 +76,6 @@ public class UsuariosController : ControllerBase
             return NotFound("(ID) - Usuario nao encontrado");
         }
 
-            return Ok();
+            return Ok("Usuario deletado do banco de dados");
     }
 }
