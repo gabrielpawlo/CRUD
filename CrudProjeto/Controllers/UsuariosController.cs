@@ -24,6 +24,7 @@ public class UsuariosController : ControllerBase
         {
             return BadRequest(ModelState);
         }
+        usuario.DataCadastro = DateTime.Now;
 
         _context.Usuarios.Add(usuario);
         await _context.SaveChangesAsync();
