@@ -24,7 +24,7 @@ public class UsuariosController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        usuario.DataCadastro = DateTime.Now;
+        usuario.DataCadastro = DateTime.Now;//TODOS NOVOS USUARIOS VAO RECEBER DATETIME.NOW
 
         _context.Usuarios.Add(usuario);
         await _context.SaveChangesAsync();
@@ -54,7 +54,7 @@ public class UsuariosController : ControllerBase
     }
 
     [HttpPut("{id}")] //fazer put (modificacao) por id //update
-    public async Task<IActionResult> PutUsuarios(int id, [FromBody] Usuarios usuarioAtualizado)
+    public async Task<IActionResult> PutUsuarios(int id, [FromBody] UsuarioUpdateDTO usuarioAtualizado)
     {
         var usuarioAtual = _context.Usuarios.Find(id);
         if(usuarioAtual == null)
@@ -62,10 +62,25 @@ public class UsuariosController : ControllerBase
             return NotFound("(ID) Nao encontrado");
         }
 
-        _context.Entry(usuarioAtual).CurrentValues.SetValues(usuarioAtualizado);
+        usuarioAtual.Name = usuarioAtualizado.Name;
+        usuarioAtual.Email = usuarioAtualizado.Email;
 
-        await _context.SaveChangesAsync();
-        return StatusCode(201, usuarioAtual);//201 modificado
+        if (!string.IsNullOrEmpty(usuarioAtualizado.Senha))
+        {
+            usuarioAtual.Senha = usuarioAtualizado.Senha;
+        }
+
+        try
+        {
+            _context.Entry(usuarioAtual).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+
+        }
+
+        return NoContent();
     }
 
 
