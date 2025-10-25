@@ -1,22 +1,23 @@
-﻿# Etapa 1: Build
+﻿# Etapa 1 — Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copia os arquivos da solução e do projeto
-COPY CrudSolucao.sln ./
-COPY CrudProjeto/CrudProjeto.csproj CrudProjeto/
-RUN dotnet restore CrudProjeto/CrudProjeto.csproj
-
-# Copia o resto do código e faz o build
+# Copia tudo e restaura dependências
 COPY . .
-WORKDIR /src/CrudProjeto
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet restore "./CrudProjeto.csproj"
 
-# Etapa 2: Runtime
+# Publica o projeto
+RUN dotnet publish "./CrudProjeto.csproj" -c Release -o /app/publish
+
+# Etapa 2 — Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
+
+# Copia os arquivos publicados da etapa anterior
 COPY --from=build /app/publish .
 
-# Importante: usar a variável de porta do Render
-ENV ASPNETCORE_URLS=http://+:$PORT
+# Render define a porta em $PORT
+ENV ASPNETCORE_URLS=http://*:$PORT
+
+# Define o ponto de entrada
 ENTRYPOINT ["dotnet", "CrudProjeto.dll"]
